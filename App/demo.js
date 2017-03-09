@@ -1,18 +1,15 @@
+var http = require('http'),
+    fs = require('fs');
+//list = require('./ExampleCode.js'); // see  template
 
 
-function addTwoNumber(){
-    var a = document.getElementById("txt1").value;
-    var b = document.getElementById("txt2").value;
-
-    var x = Number(a) + Number(b);
-    document.getElementById("demo").innerHTML = "Add Value: " + x;
-}
-
-
-function multiplyTwoNumber(){
-    var a = document.getElementById("txt1").value;
-    var b = document.getElementById("txt2").value;
-
-    var x = Number(a) * Number(b);
-    document.getElementById("demo").innerHTML = "Add Value: " + x;
-}
+fs.readFile('./page.html', function (err, html) {
+    if (err) {
+        throw err; 
+    }       
+    http.createServer(function(request, response) {  
+        response.writeHeader(200, {"Content-Type": "text/html"});  
+        response.write(html);  
+        response.end();  
+    }).listen(8980);
+});
